@@ -54,32 +54,26 @@ if (!empty($projectFilter) && $projectFilter !== 'all') {
     <div class="projects-container">
         <?php
 
-        // Display all projects and their tasks if "All Projects" is selected
         if ($projectFilter === 'all') {
             foreach ($projectsList as $project) {
                 echo "<div class='project'>";
                 echo "<h3>{$project['name']}</h3>";
-                // Update project button
                 echo "<form action='./projects/update_project_form.php' method='POST'>";
                 echo "<input type='hidden' name='project_id' value='{$project['id']}'>";
                 echo "<button type='submit'>Update Project</button>";
                 echo "</form>";
 
-                // Delete project button
                 echo "<form action='./projects/delete_project.php' method='POST'>";
                 echo "<input type='hidden' name='project_id' value='{$project['id']}'>";
                 echo "<button type='submit'>Delete Project</button>";
                 echo "</form>";
-                // Display tasks for the project
                 echo "<ul>";
                 foreach ($tasksList[$project['id']] as $task) {
                     echo "<li>{$task['task_name']} - Due Date: {$task['due_date']}";
-                    // Update task button
                     echo "<form action='./tasks/update_task_form.php' method='POST'>";
                     echo "<input type='hidden' name='task_id' value='{$task['id']}'>";
                     echo "<button type='submit'>Update Task</button>";
                     echo "</form>";
-                    // Delete task button
                     echo "<form action='./tasks/delete_task.php' method='POST'>";
                     echo "<input type='hidden' name='task_id' value='{$task['id']}'>";
                     echo "<button type='submit'>Delete Task</button>";
@@ -90,32 +84,30 @@ if (!empty($projectFilter) && $projectFilter !== 'all') {
                 echo "</div>";
             }
         } else {
-            // Display only the selected project and its tasks if a filter is applied
-            $selectedProject = $projectManager->getProjectById($projectFilter); // Fetch selected project details
+            $selectedProject = $projectManager->getProjectById($projectFilter); 
             if ($selectedProject) {
                 echo "<div class='project'>";
                 echo "<h3>{$selectedProject['name']}</h3>";
-                // Update project button
+                
                 echo "<form action='update_project_form.php' method='POST'>";
                 echo "<input type='hidden' name='project_id' value='{$selectedProject['id']}'>";
                 echo "<button type='submit'>Update Project</button>";
                 echo "</form>";
                
-                // Delete project button
                 echo "<form action='delete_project.php' method='POST'>";
                 echo "<input type='hidden' name='project_id' value='{$selectedProject['id']}'>";
                 echo "<button type='submit'>Delete Project</button>";
                 echo "</form>";
-                // Display tasks for the selected project
+
                 echo "<ul>";
                 foreach ($tasksList as $task) {
                     echo "<li>{$task['task_name']} - Due Date: {$task['due_date']}";
-                    // Update task button
+
                     echo "<form action='update_task_form.php' method='POST'>";
                     echo "<input type='hidden' name='task_id' value='{$task['id']}'>";
                     echo "<button type='submit'>Update Task</button>";
                     echo "</form>";
-                    // Delete task button
+                    
                     echo "<form action='delete_task.php' method='POST'>";
                     echo "<input type='hidden' name='task_id' value='{$task['id']}'>";
                     echo "<button type='submit'>Delete Task</button>";
